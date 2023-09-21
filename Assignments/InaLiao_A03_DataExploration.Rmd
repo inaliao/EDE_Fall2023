@@ -93,7 +93,6 @@ head(count_effect_top, n=6)
 7.  Using the `summary` function, determine the six most commonly studied species in the dataset (common name). What do these species have in common, and why might they be of interest over other insects? Feel free to do a brief internet search for more information if needed.[TIP: The `sort()` command can sort the output of the summary command...]
 
 ```{r Count of Studied Species}
-unique(Neonics$Species.Scientific.Name) #to get the unique values in the "Scientific Name" column
 Neonics$Species.Scientific.Name<-as.factor(Neonics$Species.Scientific.Name) #convert data type: character to factor
 count_species<-summary(Neonics$Species.Scientific.Name) #calculate frequency
 count_species_top<-sort(count_species,decreasing=TRUE) #sort the frequency descendingly
@@ -213,7 +212,8 @@ violin_drymass
 
 Why is the boxplot a more effective visualization option than the violin plot in this case?
 
-> Answer:Becasue we are more interested to know what is the dry mass compare to different functional groups, and the bar plot could shouw us the range, percentile, the mean, and the outliers of the dry mass; while the violin plot provide more information on the distribution shape of the biomass.
+> Answer: We are interested to know how the dry mass compares to different functional groups, and the bar plot could show us the information with the range, percentile, mean, and outliers of the dry mass, while the violin plot can only prodivde an overview of the distribution of the dry mass. Thus, the box plot is a better visualization option in this case. 
+
 
 What type(s) of litter tend to have the highest biomass at these sites?
 
