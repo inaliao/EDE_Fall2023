@@ -45,8 +45,8 @@ library(dplyr)
 getwd()
 setwd("/Users/inaliao/Desktop/EDE_Fall2023/Assignments")
 getwd()
-Neonics<-read.csv("/Users/inaliao/Desktop/EDE_Fall2023/Assignments/ECOTOX_Neonicotinoids_Insects_raw.csv")
-Litter<-read.csv("/Users/inaliao/Desktop/EDE_Fall2023/Assignments/NEON_NIWO_Litter_massdata_2018-08_raw.csv")
+Neonics<-read.csv("/Users/inaliao/Desktop/EDE_Fall2023/Assignments/ECOTOX_Neonicotinoids_Insects_raw.csv",StingAsFactor=TRUE)
+Litter<-read.csv("/Users/inaliao/Desktop/EDE_Fall2023/Assignments/NEON_NIWO_Litter_massdata_2018-08_raw.csv",StingAsFactor=TRUE)
 ```
 
 ## Learn about your system
@@ -72,7 +72,8 @@ Litter<-read.csv("/Users/inaliao/Desktop/EDE_Fall2023/Assignments/NEON_NIWO_Litt
 
 ```{r Dimensions of the Dataset}
 View(Neonics)
-num_dimention<-ncol(Neonics);num_dimention
+#num_dimention<-ncol(Neonics);num_dimention
+dim(Neonics)
 ```
 > Answer:There are 30 dimentions of the dataset. 
 
@@ -100,6 +101,8 @@ head(count_species_top,n=7)
 ```
 
 > Answer:The six most studied species are Apis mellifera (n=667), Bombus terrestris (n=183), Apis mellifera ssp. carnica (n=152), Bombus impatiens (n=140), Apis mellifera ssp. ligustica (n=113), and Popillia japonica (n=94). 
+#add: explanation of why these species are specifically of interest, and doesn't list them as COMMON species
+#add: scientific names (described in the question)
 
 8.  Concentrations are always a numeric value. What is the class of `Conc.1..Author.` column in the dataset, and why is it not numeric?
 
@@ -109,6 +112,7 @@ head(Neonics$Conc.1..Author.)
 ```
 
 > Answer:Because the values contained "" in the column. 
+#correction: This column is listed as factor data because there are characters ("/", "~", etc.) in some of the values. When you specify stringAsFactors=TRUE at the beginning of the assignment, R reads in this column as factor data because it recognizes these characters as strings.
 
 ## Explore your data graphically (Neonics)
 
