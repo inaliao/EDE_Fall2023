@@ -134,7 +134,7 @@ plot_temp<-ggplot(df_NTL)+
         axis.title.y = element_text(size = 8),    
         axis.text.x = element_text(size = 6),    
         axis.text.y = element_text(size = 6),
-         legend.title = element_text(size = 8),
+        legend.title = element_text(size = 8),
         legend.text = element_text(size = 8))
 
 #boxplot of TP
