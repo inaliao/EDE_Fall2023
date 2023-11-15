@@ -1,0 +1,15 @@
+---
+title: Interative Rmd
+output: html_document 
+runtime: shiny
+---
+
+```{r, warning=FALSE}
+options(repos = "https://cran.rstudio.com/") #error: trying to use CRAN without setting a mirrow
+install.packages("shiny")
+library(shiny)
+```
+```{r}
+numericInput("n","How many cars?",5)
+renderTable({head(cars,input$n)})
+```

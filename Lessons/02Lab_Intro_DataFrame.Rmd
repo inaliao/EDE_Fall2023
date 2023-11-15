@@ -1,0 +1,155 @@
+---
+title: "Intro to Data Frames in R"
+subtitle: "Environmental Data Analytics"
+author: "Luana Lima"
+date: "Fall 2023"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+#will not print the chunk 
+#echo=Falue -> only print out the result 
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data frame definition
+
+A **data frame** is used for storing data tables. It a list a vector of equal length.
+
+When we import data to R, data frame is the preferred way for storing the data because columns can have different modes (character, numeric, integer, logical, complex).
+
+## Data frame built-in example
+
+Let's look into a built-in data frame from package "datasets" - cars. The data give the speed of cars and the distances taken to stop.
+
+```{r cars}
+#console type data() -> list all availble dataset within R
+cars
+mtcars 
+```
+
+Note that it has 2 columns and 50 rows.
+
+## Data frame columns
+
+Suppose you want just the column speed. How would you access that data?
+
+```{r}
+cars$speed
+#use $ to specify the column in the dataset 
+```
+
+
+```{r}
+mtcars$cyl
+
+```
+How would you store it on another object?
+
+```{r}
+car_speed <- cars$speed
+car_speed
+```
+
+## Transforming object in a data frame
+
+Is the new object you create a data frame?
+
+```{r}
+#Option 1
+class(car_speed)
+
+#Option 2
+is.data.frame(car_speed)
+#to confirm if car_speed is a data frame 
+#is.data.frame(name_dataframe)
+```
+
+How could you make it a data frame?
+
+```{r}
+df_car_speed <- as.data.frame(car_speed)
+#as.data.frame(name_dataframe) -> convert data type to data frame 
+#data.frame: assign the type as data frame 
+df_car_speed
+class(df_car_speed)
+```
+
+## Adding columns to a data frame
+
+How could you add columns to *df_car_speed*?
+
+```{r}
+car_dist <- cars$dist
+
+#Option 1
+df <- cbind(df_car_speed,car_dist)  
+#rbind(): similarly rows could be added using rbind()
+#cbind(dataframe1, dataframe2): combine data frame by column
+#check: combine data frames based on 
+class(df)
+df
+
+#Or Option 2 - transform into a data frame before binding
+df_car_dist <- as.data.frame(car_dist)  #op2
+df_opt2 <- cbind(df_car_speed,df_car_dist)
+class(df_opt2)
+df_opt2
+
+```
+
+Note that when we transformed the vector in a data frame the name of the vector became the column name.
+
+```{r}
+colnames(df)  #or simply names()
+names(df)
+#to check to name of the column 
+#name(name_dataframe)
+#check: if it is the same for rows names 
+```
+
+## Creating a data frame
+
+How would you create a data frame?
+
+```{r}
+#useful function data.frame("column_name1"=name_variable1, "column_name2"=name_variable2)
+create_df <- data.frame("speed"=car_speed,"dist"=car_dist)
+create_df
+```
+
+## Data frame functions
+
+Some useful functions to use with data frames.
+
+```{r}
+ncol(df)  
+nrow(df)  
+length(df)  #same as ncol
+summary(df)
+head(df) #show the first 6 rows of df
+```
+
+```{r}
+#If you know the number of the column you want you can refer to that to access column
+df1<-df[,1]
+
+#df[row, column]
+df2<-df[1:10, 1] 
+#slice row 1 to 10, show column 1
+df3<-df[c(1,3,4),1] 
+#only retrieve row #1,#3, #4 (in order) with the first column
+df4<- df[c(1,3,4),] 
+#only retrieve row #1,#3, #4 (in order) with all column
+df5<-df[c(1,3,4),]$car_speed
+# if the order of the column is unsure
+df6<-df$car_speed[c(1,3,4),]
+#error 
+#since df$car_speed is a vector, will not have the column
+#[c(1,3,4),] : this is only applied to the data frame 
+#alternative: assign df$car_speed as date frame (as.dataframe(df$car_speed))
+
+#you could also use this notation to delete columns
+df <- df[,-2]
+df
+```
